@@ -7,4 +7,4 @@ This project is made in order to understand machine learning application.
 The dataset analysis, gave insight towards using univariate model.
 
 
-Dataset Link : https://github.com/mauryasakshi/Covid-Vaccination_LSTM/upload
+Dataset Link : https://www.kaggle.com/sudalairajkumar/covid19-in-india
