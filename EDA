@@ -1,0 +1,60 @@
+## importing required files
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# loading dataset
+df_vaccine = pd.read_csv('covid_vaccine_statewise.csv')
+df_vaccine.columns
+df_vaccine.head()
+df_vaccine.describe()
+df_vaccine.info()
+df_vaccine.shape
+df_vaccine.isna().sum()
+df_vaccine.fillna(0,inplace=True)
+states = df_vaccine['State'].unique()
+states
+
+## Finding correlation between independent variables
+import seaborn as sns    
+import matplotlib.pyplot as plt
+import pandas.util.testing as tm
+corr = df_vaccine.corr()
+top_features=corr.index
+plt.figure(figsize=(20,20))
+sns.heatmap(df_vaccine[top_features].corr(),annot=True)
+
+
+# Plot to see highly vaccinated states
+highly_vaccinated = df_vaccine.groupby('State')['Total Individuals Vaccinated'].sum().sort_values(ascending=False)
+highly_vaccinated.drop(["India"], inplace = True)
+highly_vaccinated.plot.bar(rot= 90,figsize=(30,10),fontsize=20,
+                           xlabel="States", ylabel="Vaccinated Population",color='green',
+                          title ='Graph to show highly vaccinated states')
+                          
+## updating 'updated on' column to date
+df_vaccine['Updated On'] = pd.to_datetime(df_vaccine['Updated On']).dt.date
+
+# subsetting details of India from dataset
+India = df_vaccine[df_vaccine['State']=='India']
+
+# lets draw a pie chart to understand total doese administered  and total individual vaccinationed
+import matplotlib.pyplot as plt
+
+total_doses_adminstered = India['Total Doses Administered'].sum()
+Total_Individuals_Vaccinated = India['Total Individuals Vaccinated'].sum()
+labels = ["Total Doses","Total vaccinated"]
+colors = ['yellow','red']
+sizes = [total_doses_adminstered,Total_Individuals_Vaccinated]
+plt.pie(sizes,labels=labels, colors=colors, startangle=120, autopct='%1.1f%%')
+plt.axis('equal')
+plt.title("Vaccination administered and vaccinated")
+plt.show()
+
+fig, ax=plt.subplots(nrows=3, ncols=1, figsize=(23,10), squeeze=False, sharex=True, sharey=False, constrained_layout=True)
+sns.lineplot(data=India, x='Updated On',y='First Dose Administered', ax=ax[0,0], color=colors[1])
+ax[0,0].set_title("India First, second and total vaccination frequency graph", size=20)
+sns.lineplot(data=India, x='Updated On',y='Second Dose Administered', ax=ax[1,0], color=colors[1])
+sns.lineplot(data=India, x='Updated On',y='Total Doses Administered', ax=ax[2,0], color=colors[1])
+plt.show()
