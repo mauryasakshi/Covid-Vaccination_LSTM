@@ -1,4 +1,10 @@
 # Covid-Vaccination_LSTM
 Predicting Vaccination status in India using machine learning technique
 
+This project is developed in order to predict covid vaccinations.
+This project is developed using LSTM (Long Short Term Memory)
+This project is made in order to understand machine learning application. 
+The dataset analysis, gave insight towards using univariate model.
+
+
 Dataset Link : https://github.com/mauryasakshi/Covid-Vaccination_LSTM/upload
